@@ -28,37 +28,44 @@ import React, {Component} from 'react';
                     break;
                 case "image":
                     //Add the image urls into the article image array.
-                    this.setState({ articleImage: [...this.state.articleImage, data.body[i].model] })
+                    this.setState({articleImage: [...this.state.articleImage, data.body[i].model]})
                     //console.log(this.state.articleImage)
                     break;
                 case "list":
                     let numberOfItems = parseInt(data.body[i].model.items.length);
-                    for (let k = 0; k < numberOfItems ; k++) {
-                        //let listItem = data.body[i].model.items[k]
-                        this.setState({ articleList: [...this.state.articleList, data.body[i].model.items[k]]})
-                        console.log(this.state.articleList)
-
-
+                    for (let k = 0; k < numberOfItems; k++) {
+                        //Add the list items to the articleList array
+                        this.setState({articleList: [...this.state.articleList, data.body[i].model.items[k]]})
+                        //console.log(this.state.articleList)
                     }
-                    //console.log(data.body[i].model.items.length)
-                    //console.log(numberOfItems)
-
                     break;
-
+                case "paragraph":
+                    //console.log(data.body[i].model)
+                    //Add the paragraph information to the articleList array.
+                    this.setState({articleText: [...this.state.articleText, data.body[i].model]})
+                    //console.log(this.state.articleText)
+            }
                     }
-
-                        //this.setState({articleList: )
-                        //console.log(data.body[i].model.items[k])
-
-                    }
-
-
-
-
             }
 
     render(){
+        const articleText = this.state.articleText
+
+        console.log(articleText)
+
         return (<div>
+                {articleText.map(function(textinfo, id){
+                    return(
+                        <ul>
+                            <li key={id}>
+                                {textinfo.text}
+                            </li>
+                        </ul>
+                    )
+                    }
+
+                )}
+
 
             </div>
 
